@@ -43,7 +43,11 @@ namespace WindowsForms
         {
             // This never gets called after client.SendData(). 
             // Probably because of something like https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.control.invoke?view=netframework-4.7.2
-            txbResponseFromServer.AppendText(e.Data);
+            txbResponseFromServer.Invoke((MethodInvoker)delegate ()
+            {
+                txbResponseFromServer.AppendText(e.Data + Environment.NewLine);
+            });
+
         }
 
         private async void btnSendData_Click(object sender, EventArgs e)

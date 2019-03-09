@@ -12,7 +12,7 @@ namespace TcpClientLib
     {
         private sealed class Sender
         {
-            internal async Task<GenericResult<bool>> SendData(byte[] data)
+            internal async Task<GenericResult<bool>> SendData(string data)
             {
                 var response = new GenericResult<bool>(true);
 
@@ -21,10 +21,12 @@ namespace TcpClientLib
                     if (_stream.CanWrite)
                     {
                         // transition the data to the thread and send it...
-                        await WriteWithTimeout(_stream, data, timeoutMs: 5000);
+                        //await WriteWithTimeout(_stream, data, timeoutMs: 5000);
 
                         // Same code as above without timeout
                         // await _stream.WriteAsync(data, 0, data.Length).ConfigureAwait(false);
+                        var writer = new BinaryWriter(_stream);
+                        writer.Write(data);
                     }
                     else
                     {

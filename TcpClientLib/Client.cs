@@ -14,7 +14,7 @@ namespace TcpClientLib
         {
             try
             {
-                return await _sender.SendData(Encoding.ASCII.GetBytes(data)).ConfigureAwait(false);
+                return await _sender.SendData(data).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

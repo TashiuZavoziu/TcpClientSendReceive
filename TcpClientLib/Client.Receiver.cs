@@ -59,9 +59,8 @@ namespace TcpClientLib
                             }
                             else if (_stream.DataAvailable) // When in Xamarin or WinForms this is never true...
                             {
-                                var b = new byte[1024];
-                                var bytes = _stream.Read(b, 0, b.Length);
-                                var responseData = Encoding.UTF8.GetString(b, 0, bytes);
+                                var reader = new BinaryReader(_stream);
+                                var responseData = reader.ReadString();
 
                                 //Don't need this logging since the subscriber to event MainDataReceived logs it out!
                                 //Log.Debug("Got a response from the server: " + responseData);
